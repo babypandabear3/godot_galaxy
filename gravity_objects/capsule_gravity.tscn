@@ -1,0 +1,42 @@
+[gd_scene load_steps=7 format=3 uid="uid://xyyt4i2emylf"]
+
+[ext_resource type="Script" path="res://gravity_objects/gravity_object.gd" id="1_lunpj"]
+[ext_resource type="Material" uid="uid://cg0e4w802ui1n" path="res://material/triplanar_grid.tres" id="2_op30c"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_t4ntp"]
+material = ExtResource("2_op30c")
+radius = 5.0
+height = 20.0
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_sh2dn"]
+radius = 5.0
+height = 20.0
+
+[sub_resource type="Curve3D" id="Curve3D_3k5y7"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, -5, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_irhsa"]
+radius = 7.0
+height = 24.0
+
+[node name="capsule-gravity" type="Area3D"]
+script = ExtResource("1_lunpj")
+gravity_type = 2
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_t4ntp")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("CapsuleShape3D_sh2dn")
+
+[node name="Path3D" type="Path3D" parent="."]
+curve = SubResource("Curve3D_3k5y7")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_irhsa")
