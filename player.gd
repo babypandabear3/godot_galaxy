@@ -14,6 +14,14 @@ var gravity_dir := Vector3.DOWN
 
 var impulse := Vector3.ZERO
 
+func _ready():
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	
+func _input(event):
+	if event is InputEventKey:
+		if event.keycode == KEY_ESCAPE:
+			get_tree().quit()
+			
 func _physics_process(delta):
 	if not camera:
 		return
@@ -37,13 +45,13 @@ func _physics_process(delta):
 		velocity += gravity_dir * gravity * delta
 
 	# Handle jump.
-	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
+	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity = velocity.slide(gravity_dir)
 		velocity -= gravity_dir * JUMP_VELOCITY
 
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
-	var input_dir = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
+	var input_dir = Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	var camera_basis = camera.get_camera_basis_for_controller()
 	
 	var direction = ((camera_basis.x * input_dir.x) + (camera_basis.z * input_dir.y)).normalized() #(transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
