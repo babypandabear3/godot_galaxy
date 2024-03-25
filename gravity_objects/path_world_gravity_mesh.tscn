@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://c0acxr44twsa3"]
+
+[ext_resource type="PackedScene" uid="uid://pq0yakqutfe4" path="res://glb/cylinder-test.glb" id="1_hi7qv"]
+[ext_resource type="Material" uid="uid://cg0e4w802ui1n" path="res://material/triplanar_grid.tres" id="2_jchn4"]
+
+[node name="cylinder-test" instance=ExtResource("1_hi7qv")]
+
+[node name="Cylinder" parent="." index="0"]
+material_override = ExtResource("2_jchn4")

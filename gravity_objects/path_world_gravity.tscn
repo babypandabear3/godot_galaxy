@@ -1,0 +1,52 @@
+[gd_scene load_steps=8 format=3 uid="uid://cd1tva3jaakc4"]
+
+[ext_resource type="Script" path="res://gravity_objects/gravity_object.gd" id="1_3fuw6"]
+[ext_resource type="PackedScene" uid="uid://c0acxr44twsa3" path="res://gravity_objects/path_world_gravity_mesh.tscn" id="2_rwueg"]
+
+[sub_resource type="Curve3D" id="Curve3D_rgsvt"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 2.69516, -1.48237, 10.594, 0, 0, 0, 0, 0, 0, 2.69516, -1.6059, -0.533569, 0, 0, 0, 0, 0, 0, -3.31668, -1.56473, -6.47839, 0, 0, 0, 0, 0, 0, -10.9756, 6.42362, -14.4048, 0, 0, 0, 0, 0, 0, -11.9227, 6.54715, -17.6692, 0, 0, 0, 0, 0, 0, -12.9109, 6.54715, -26.2815),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0)
+}
+point_count = 6
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_n2oy0"]
+height = 15.0664
+radius = 6.0
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_of7hb"]
+height = 9.65436
+radius = 6.0
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_6sk5q"]
+height = 9.34325
+radius = 6.0
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_ylsfi"]
+height = 18.1758
+radius = 7.0
+
+[node name="path_world_gravity" type="Area3D"]
+script = ExtResource("1_3fuw6")
+gravity_type = 2
+
+[node name="Path3D" type="Path3D" parent="."]
+curve = SubResource("Curve3D_rgsvt")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 2.8962, -1.67675, 3.29229)
+shape = SubResource("CylinderShape3D_n2oy0")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -12.0577, 6.40973, -21.5691)
+shape = SubResource("CylinderShape3D_of7hb")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.843626, 0.536932, -2.347e-08, 0, -4.37114e-08, -1, -0.536932, 0.843626, -3.68761e-08, -10.7464, 6.75602, -14.7859)
+shape = SubResource("CylinderShape3D_6sk5q")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.500696, 0.493908, -0.710885, -0.421756, -0.577974, -0.698619, -0.755927, 0.649616, -0.0810801, -3.58214, 0.990806, -8.07888)
+shape = SubResource("CylinderShape3D_ylsfi")
+
+[node name="cylinder-test2" parent="." instance=ExtResource("2_rwueg")]

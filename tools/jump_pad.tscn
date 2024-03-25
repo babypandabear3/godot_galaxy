@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://cbr5hyemkp0a0"]
+
+[ext_resource type="Material" uid="uid://cg0e4w802ui1n" path="res://material/triplanar_grid.tres" id="1_2bya1"]
+[ext_resource type="Script" path="res://tools/jump_pad.gd" id="1_p5bfq"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_gw81c"]
+material = ExtResource("1_2bya1")
+height = 0.1
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_dhuis"]
+height = 0.1
+
+[node name="jump_pad" type="MeshInstance3D"]
+mesh = SubResource("CylinderMesh_gw81c")
+script = ExtResource("1_p5bfq")
+
+[node name="jump_pad_area" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="jump_pad_area"]
+shape = SubResource("CylinderShape3D_dhuis")
+
+[connection signal="body_entered" from="jump_pad_area" to="." method="_on_jump_pad_area_body_entered"]

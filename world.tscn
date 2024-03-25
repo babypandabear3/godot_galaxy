@@ -1,0 +1,68 @@
+[gd_scene load_steps=13 format=3 uid="uid://c6mbdqukrdf7f"]
+
+[ext_resource type="PackedScene" uid="uid://c65dgtsn15uml" path="res://camera_root.tscn" id="1_3ins2"]
+[ext_resource type="Material" uid="uid://cg0e4w802ui1n" path="res://material/triplanar_grid.tres" id="1_yhp45"]
+[ext_resource type="PackedScene" uid="uid://sveodsn015eq" path="res://player.tscn" id="2_ljqyn"]
+[ext_resource type="PackedScene" uid="uid://cbr5hyemkp0a0" path="res://tools/jump_pad.tscn" id="4_jt6cp"]
+[ext_resource type="PackedScene" uid="uid://ydmr6ff7ymkk" path="res://gravity_objects/sphere_gravity.tscn" id="5_d66bf"]
+[ext_resource type="PackedScene" uid="uid://clqiriwbt63bd" path="res://gravity_objects/local_down_gravity.tscn" id="6_4sesv"]
+[ext_resource type="PackedScene" uid="uid://cd1tva3jaakc4" path="res://gravity_objects/path_world_gravity.tscn" id="7_86jvy"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_svi8u"]
+material = ExtResource("1_yhp45")
+size = Vector3(100, 1, 100)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_266ld"]
+size = Vector3(100, 1, 100)
+
+[sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_lvvj0"]
+ground_color = Color(0.486275, 0.337255, 0.168627, 1)
+
+[sub_resource type="Sky" id="Sky_vp7r6"]
+sky_material = SubResource("PhysicalSkyMaterial_lvvj0")
+
+[sub_resource type="Environment" id="Environment_2x713"]
+sky = SubResource("Sky_vp7r6")
+ambient_light_color = Color(0.588235, 0.564706, 0.329412, 1)
+
+[node name="world" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_svi8u")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D"]
+shape = SubResource("BoxShape3D_266ld")
+
+[node name="camera_root" parent="." instance=ExtResource("1_3ins2")]
+player_path = NodePath("../player")
+
+[node name="player" parent="." instance=ExtResource("2_ljqyn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.753506, 0.657441, 0, -0.657441, 0.753506, 0, 12, 0)
+light_color = Color(0.745098, 0.819608, 1, 1)
+shadow_enabled = true
+
+[node name="jump_pad" parent="." instance=ExtResource("4_jt6cp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0.55, -4)
+
+[node name="jump_pad2" parent="." instance=ExtResource("4_jt6cp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.873046, 0.55, 17.796)
+
+[node name="jump_pad3" parent="." instance=ExtResource("4_jt6cp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.4925, 0.55, 3.37554)
+
+[node name="sphere_gravity" parent="." instance=ExtResource("5_d66bf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.64501, 13.2873, -6.78595)
+
+[node name="local_down_gravity" parent="." instance=ExtResource("6_4sesv")]
+transform = Transform3D(0.707107, -0.5, -0.5, 0, -0.707107, 0.707107, -0.707107, -0.5, -0.5, 0, 11.9185, 20)
+
+[node name="path_world_gravity" parent="." instance=ExtResource("7_86jvy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.6813, 16.043, 7.34502)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_2x713")

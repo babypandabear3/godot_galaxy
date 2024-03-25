@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://c65dgtsn15uml"]
+
+[ext_resource type="Script" path="res://camera_root.gd" id="1_6a8ns"]
+
+[sub_resource type="SeparationRayShape3D" id="SeparationRayShape3D_wqulu"]
+
+[node name="camera_root" type="Node3D"]
+script = ExtResource("1_6a8ns")
+player_path = null
+mouse_sensitivity = null
+vertical_angle_min = null
+vertical_angle_max = null
+
+[node name="axis_y" type="Node3D" parent="."]
+
+[node name="axis_x" type="SpringArm3D" parent="axis_y"]
+shape = SubResource("SeparationRayShape3D_wqulu")
+spring_length = 4.0
+
+[node name="Camera3D" type="Camera3D" parent="axis_y/axis_x"]
